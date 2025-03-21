@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using static System.Console;
-
-int[] array = { 4, 8, 15, 16, 23 };
+﻿int[] array = { 4, 8, 15, 16, 23 };
 int[] query = Filter(array, GreaterThanFive);
 foreach (int value in query) { WriteLine(value); }
 
