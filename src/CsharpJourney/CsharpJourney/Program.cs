@@ -8,9 +8,7 @@ int[] Filter(int[] src, Predicate p)
 {
     List<int> dst = new List<int>();
     foreach (int value in src) { if (p(value)) dst.Add(value); }
-    int[] result = new int[dst.Count];
-    for (int i = 0; i < result.Length; i++) { result[i] = dst[i]; }
-    return result;
+    return dst.ToArray();
 }
 
 delegate bool Predicate(int i);
