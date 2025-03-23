@@ -6,9 +6,9 @@ bool GreaterThanFive(int i) { return i > 5; }
 
 int[] Filter(int[] src, Predicate p)
 {
-    List<int> dst = new List<int>();
+    List<int> dst = [];
     foreach (int value in src) { if (p(value)) dst.Add(value); }
-    return dst.ToArray();
+    return [.. dst];
 }
 
 delegate bool Predicate(int i);
