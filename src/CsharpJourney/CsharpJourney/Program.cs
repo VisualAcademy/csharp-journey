@@ -1,16 +1,25 @@
 ﻿int[] array = { 4, 8, 15, 16, 23 };
 
-await ExecuteQueryAsync(array);
+var input = new QueryInput { Data = array };
 
-// C# 8.0: switch 식 적용
+// 기존 데이터를 변경하여 새로운 record 생성
+var modifiedInput = input with { Data = [.. array.Where(i => i % 2 == 0)] };
+
+await ExecuteQueryAsync(modifiedInput);
+
 async Task ExecuteQueryAsync(object input, bool printMessage = true) =>
     await (input switch
     {
-        int[] array when printMessage => Task.WhenAll(array.AsQueryable()
-            .Where(i => i > 5 && i % 2 == 0)
-            .Select(i => Task.Run(() => WriteLine(i)))), // 조건을 만족하는 값 출력
-
-        int[] array => Task.CompletedTask, // printMessage가 false일 때 실행 안 함
-
-        _ => throw new ArgumentException("잘못된 입력") // 잘못된 입력 처리
+        QueryInput { Data: int[] array } when printMessage
+            => Task.WhenAll(array.AsQueryable()
+                .Where(i => i > 5 && i % 2 == 0)
+                .Select(i => Task.Run(() => WriteLine(i)))),
+        QueryInput => Task.CompletedTask,
+        _ => throw new ArgumentException("Invalid input type")
     });
+
+// C# 9.0: record 타입 사용
+record QueryInput
+{
+    public int[] Data { get; init; } = [];
+}
