@@ -1,21 +1,17 @@
 ﻿int[] array = { 4, 8, 15, 16, 23 };
 
-var query = Filter(array, i => i > 5);
-foreach (int value in query) { Console.WriteLine(value); }
+var processor = new QueryProcessor(array);
+var query = processor.Filter(i => i > 5);
 
-IEnumerable<T> Filter<T>(IEnumerable<T> src, Predicate<T> p)
+foreach (int value in query) { WriteLine(value); }
+
+// C# 12.0: Primary Constructor 적용
+public class QueryProcessor(int[] data)
 {
-    foreach (T value in src)
+    public IEnumerable<int> Filter(Func<int, bool> predicate)
     {
-        if (p(value))
-            yield return value;
+        foreach (var value in data)
+            if (predicate(value))
+                yield return value;
     }
 }
-
-bool ContainsPattern(int[] numbers)
-{
-    // 첫 번째가 3, 세 번째가 5, 마지막이 30이면 true
-    return numbers is [3, _, 5, .., 30]; 
-}
-
-WriteLine(ContainsPattern(array));
