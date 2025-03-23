@@ -1,10 +1,10 @@
 ﻿int[] array = { 4, 8, 15, 16, 23 };
-int[] query = Filter(array, GreaterThanFive);
+IEnumerable<int> query = Filter(array, GreaterThanFive);
 foreach (int value in query) { WriteLine(value); }
 
 bool GreaterThanFive(int i) { return i > 5; }
 
-int[] Filter(int[] src, Predicate p)
+IEnumerable<int> Filter(IEnumerable<int> src, Predicate p)
 {
     List<int> dst = [];
     foreach (int value in src) { if (p(value)) dst.Add(value); }
