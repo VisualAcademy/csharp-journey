@@ -18,4 +18,4 @@ bool ContainsPattern(int[] numbers)
     return numbers is [3, _, 5, .., 30]; 
 }
 
-Console.WriteLine(ContainsPattern(array));
+WriteLine(ContainsPattern(array));
