@@ -6,5 +6,3 @@ IEnumerable<T> Filter<T>(IEnumerable<T> src, Predicate<T> p)
 {
     foreach (T value in src) { if (p(value)) yield return value; }
 }
-
-delegate bool Predicate<T>(T i);
