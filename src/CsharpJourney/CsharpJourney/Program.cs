@@ -6,7 +6,5 @@ bool GreaterThanFive(int i) { return i > 5; }
 
 IEnumerable<T> Filter<T>(IEnumerable<T> src, Func<T, bool> p)
 {
-    List<T> dst = new List<T>();
-    foreach (T value in src) { if (p(value)) dst.Add(value); }
-    return dst.ToArray();
+    foreach (T value in src) { if (p(value)) yield return value; }
 }
