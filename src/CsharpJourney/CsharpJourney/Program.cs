@@ -1,17 +1,10 @@
 ﻿int[] array = { 4, 8, 15, 16, 23 };
 
-var processor = new QueryProcessor(array);
-var query = processor.Filter(i => i > 5);
+var query = FilterAndProcess(array);
 
 foreach (int value in query) { WriteLine(value); }
 
-// C# 12.0: Primary Constructor 적용
-public class QueryProcessor(int[] data)
+static IEnumerable<int> FilterAndProcess(params IEnumerable<int>[] numbers)
 {
-    public IEnumerable<int> Filter(Func<int, bool> predicate)
-    {
-        foreach (var value in data)
-            if (predicate(value))
-                yield return value;
-    }
+    return numbers.SelectMany(n => n).Where(i => i > 5).Where(i => i % 2 == 0);
 }
